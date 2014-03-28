@@ -3,7 +3,7 @@ var deployd = require('deployd');
 // configure database etc. 
 var server = deployd({
   port: process.env.PORT || 5000,
-  env: 'production',
+  env: 'development',
   db: {
     host: 'oceanic.mongohq.com',
     port: 10071,
