@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:ng="http://angularjs.org" ng-app="votingApp" ng-controller="votingCtrl">
+	<!-- DPD Support -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="dpd.js"></script>
+	
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script src="http://cdn.jsdelivr.net/jquery.meiomask/1.1.12/meiomask.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-animate.min.js"></script>
+
+      <!-- Bootstrap support -->
+     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+     <script type="text/javascript">
+          var app = angular.module('votingApp', []);
+
+          var contrl = app.controller('votingCtrl', function($scope, $http) {
+          	$scope.beerItems = [];
+          	$scope.rating = 0;
+
+          	$scope.ratingOptions = ['1','2'];
+          	$http.get('/beers')
+          		.success(function(beers) {
+          			$scope.loaded = true;
+          			$scope.beerItems = beers;
+          		}).error(function(err) { 
+          			alert(err);
+          		});
+
+          	$scope.submitVote = function(beer, rating1) {
+
+			    $http.put('/beers', {
+			      id : beer.id,
+			      rating: rating1
+			    }).success( function(beer) {
+			      	//$scope.beerItems.push(beer);
+			      	//$scope.beerItems.pull(beer.id);
+			    }).error(function(err) {
+			      // Alert if there's an error
+			      return alert(err.message || "an error occurred");
+			    });
+  			};
+   
+          });
+          
+     </script>
+</head>
+ <body style="margin: 20px"> 
+ 	<div style="float: left; width: 73%">
+ 		<form class="form-horizontal">
+ 			<fieldset>
+ 			<legend>BrewFest Voting App</legend>
+	 			 <div style="margin-bottom: 10px;" class="panel panel-info">
+	                    <button type="Button" class="btn btn-primary" ng-click="submitVote(newTodoTitle)">Vote</button>&nbsp;&nbsp;
+	                    <button type="Button" class="btn btn-default">Cancel</button>
+	             <div>
+
+	             <div class="panel panel-info">
+                    <div class="panel-heading">Beer Submissions</div>
+                    <div class="panel-body" id="beers"> 
+                    	<table style="width: 75%">
+							    <thead>
+							        <th>
+							            Id
+							        </th>
+							        <th>
+							            Name
+							        </th>
+							        <th>
+							            Rating
+							        </th>
+							    </thead>
+							    <tbody ng-repeat="item in beerItems">
+							        <tr>
+							            <td style="width: 30%">
+							                {{item.id}}
+							            </td>
+							            <td style="width: 30%">
+							                {{item.name}}
+							            </td>
+							            <td style="width: 33%">
+							            	<select class="form-control" ng-model="item.rating" ng-options="p for p in ratingOptions" />
+							            	<!--1<input type="radio" ng-model="rating" ng-checked="item.rating" value="1">
+							            	<input type="radio" ng-model="rating" value="2">
+							            	<input type="radio" ng-model="rating" value="3">
+							            	<input type="radio" ng-model="rating" value="4">
+							            	<input type="radio" ng-model="rating" value="5">5-->
+							            </td>
+							            <td style="width: 25%">
+							            	<button type="submit" class="btn btn-primary" ng-click="submitVote(item, item.rating)">Vote</button>&nbsp;&nbsp;
+							            </td>
+							        </tr>
+							    </tbody>
+							</table>
+                    </div>
+             </fieldset>
+
+
+ 		</form>
+ 	</div>
+ </body>
+</html>

@@ -1,0 +1,37 @@
+{
+	"type": "Collection",
+	"properties": {
+		"codeId": {
+			"name": "codeId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "codeId",
+			"order": 0
+		},
+		"code": {
+			"name": "code",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "code",
+			"order": 1
+		},
+		"beerId": {
+			"name": "beerId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "beerId",
+			"order": 2
+		},
+		"rating": {
+			"name": "rating",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "rating",
+			"order": 3
+		}
+	}
+}
