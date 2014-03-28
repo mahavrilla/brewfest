@@ -3,14 +3,14 @@ var deployd = require('deployd');
 // configure database etc. 
 var server = deployd({
   port: process.env.PORT || 5000,
-  env: 'development',
+  env: 'sandbox',
   db: {
     host: 'oceanic.mongohq.com',
     port: 10071,
     name: 'app23490174',
     credentials: {
-      username: 'heroku',
-      password: '22767b9fd645bf0cb5adb4c8c4add817'
+      username: 'testUser',
+      password: 'heroku'
     }
   }
 });
