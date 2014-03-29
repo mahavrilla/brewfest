@@ -33,13 +33,23 @@
 		                {{item.name}}
 		            </td>
 		            <td>
-		            	1
-		            	<input type="radio" ng-model="item.rating" ng-click="saveVote( item, item.rating)" value="1">
+		            	<div id="select-native-1-button" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow">
+		            	<span></span>
+			            	<select name="select-native-1" id="select-native-1" ng-model="item.rating" ng-change="saveVote( item, item.rating)">
+				                    <option value="1">1</option>
+				                    <option value="2">2</option>
+				                    <option value="3">3</option>
+				                    <option value="4">4</option>
+				                    <option value="5">5</option>
+	                		</select>
+                		</div>
+
+		            	<!--<input type="radio" ng-model="item.rating" ng-click="saveVote( item, item.rating)" value="1">
 		            	<input type="radio" ng-model="item.rating" ng-click="saveVote( item, item.rating)" value="2">
 		            	<input type="radio" ng-model="item.rating" ng-click="saveVote( item, item.rating)" value="3">
 		            	<input type="radio" ng-model="item.rating" ng-click="saveVote( item, item.rating)" value="4">
 		            	<input type="radio" ng-model="item.rating" ng-click="saveVote( item, item.rating)" value="5">
-		            	5
+		            	5-->
 		            </td>
 		        </tr>
 		    </tbody>

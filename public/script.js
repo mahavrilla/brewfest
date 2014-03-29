@@ -151,10 +151,6 @@
 	    $scope.updateRatings = function() {
 	    	votingService.updateRatings();
 	    };
-	    
-	    $scope.getExistingVote = function(beer, rating) {
-	    	
-	    }
 
 	   	$scope.createNewVote = function(beer,rating) {
 	    	//check to see if that record exists yet. 
