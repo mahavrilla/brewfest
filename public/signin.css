@@ -1,7 +1,43 @@
+
+/*Test */
+@font-face {
+font-family: VistaSlabOT;
+src: url("fonts/VistaSlabOT-Reg.otf") format("opentype");
+}
+
+@font-face {
+font-family: VistaSlabOT;
+font-weight: bold;
+src: url("fonts/VistaSlabOT-Bold.otf") format("opentype");
+}
+
 body {
   padding-top: 40px;
   padding-bottom: 40px;
+  font-family: VistaSlabOT;
+  color: #404040;
   
+}
+
+h3 p {
+  color: #404040;
+  font-family: VistaSlabOT;
+}
+
+.customFonts {
+  color: #404040;
+  font-family: VistaSlabOT;
+}
+.customFontsBold {
+  color: #404040;
+  font-family: VistaSlabOT;
+  font-weight: bold;
+}
+
+.btn {
+  background-color: #f29400;
+  color: #fff;
+
 }
 
 .form-signin {
@@ -32,4 +68,16 @@ body {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+/* Flatten das boostrap */
+.well, .navbar-inner, .popover, .btn, .tooltip, input, select, textarea, pre, .progress, .modal, .add-on, .alert, .table-bordered, .nav>.active>a, .dropdown-menu, .tooltip-inner, .badge, .label, .img-polaroid {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 0px !important;
+  border-collapse: collapse !important;
+  background-image: none !important;
 }

@@ -1,40 +1,60 @@
 <!-- index.html -->
 	<!DOCTYPE html>
-	<html ng-app="scotchApp">
+	<html ng-app="votingApp">
 	<head>
 	<!--Mobile First-->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>	
 	<!-- SCROLLS -->
 	<!-- load bootstrap and fontawesome via CDN -->
 	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+	
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
     <!--Custom Styles-->
     <link href="signin.css" rel="stylesheet">
 	<link href="vote.css" rel="stylesheet">
+	<link href="nav.css" rel="stylesheet">
 
 	<!-- SPELLS -->
 	<!-- load angular via CDN -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/0.7.2/angular-strap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.6.0/ui-bootstrap-tpls.min.js"></script>
 	<script src="script.js"></script>
+	<script src="controllers/beerController.js"></script>
+	<script src="controllers/loginController.js"></script>
+	<script src="Services/loginService.js"></script>
+	<script src="Services/votingService.js"></script>
 
 	</head>
 	<body ng-controller="loginController">
-
 		<!-- MAIN CONTENT AND INJECTED VIEWS -->
 		<div class="container">
 			<!-- angular templating -->
 			<!-- this is where content will be injected -->
-			<div ng-view></div>
+			<div class="logoBkgrd">
+				<img src="images/logo.png" id="logo">
+				
+				<nav>
+					<a href="#" id="menu-icon"></a>
+					<ul>
+						<li><a href="#" class="current customFonts">Home</a></li>
+						<li><a href="#" class="links customFonts">About</a></li>
+					</ul>
+				</nav>
+			</div>
+			
+			<div ng-view>
+				
+			</div>
 		</div>
 
 		<!-- FOOTER -->
-		<footer class="text-center">
-			2014© <a href="http://homebrewfest.com">homebrewfest.com</a>
+		<footer class="text-center customFonts">
+			©2014 <a class="links" href="http://homebrewfest.com">HOMEBREWFEST.COM</a>
 		</footer>
 
 	</body>
