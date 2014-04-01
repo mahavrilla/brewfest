@@ -16,6 +16,14 @@
 			"required": false,
 			"id": "rating",
 			"order": 1
+		},
+		"isBrewersChoice": {
+			"name": "isBrewersChoice",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "isBrewersChoice",
+			"order": 2
 		}
 	}
 }

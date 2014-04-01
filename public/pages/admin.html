@@ -58,6 +58,48 @@
 	</table>
 </div>
 
-<div class="button-align">
+
+<div id="beers" ng-show="showEnter"> 
+	<table align="center" class="table table-striped">
+	    <thead class="customFontsBold">
+	        <th >
+	            Name
+	        </th>
+	        <th>
+	           	Is a Beer?
+	        </th>
+	        <th>
+	           	Is BrewersChoice?
+	        </th>
+	    </thead>
+	    <tbody class="customFonts" ng-repeat="item in newItems">
+	        <tr>
+	            <td>
+	                <input type="text" ng-disabled="item.disabled" placeholder="Name" class="form-control customFonts" ng-model="item.name" required autofocus />
+	            </td>
+	            <td>
+	            	<input type="checkbox" ng-disabled="item.disabled" class="form-control customFonts" ng-model="item.isBeer" required autofocus />
+	            </td>
+	            <td>
+	            	<input type="checkbox" ng-disabled="item.disabled" class="form-control customFonts" ng-model="item.isBrewersChoice" required autofocus />
+	            </td>
+	            <td>
+	            	<button type="button" ng-click="removeNewItem($index)" class="btn btn-default btn-lg">
+  						<span class="glyphicon glyphicon-minus"></span>
+					</button>
+	            	<button type="button" ng-click="addNewItem()" class="btn btn-default btn-lg" ng-show="$last">
+  						<span class="glyphicon glyphicon-plus"></span>
+					</button>
+					
+	            </td>
+	        </tr>
+	    </tbody>
+	</table>
+</div>
+
+<div class="button-align" ng-show="showChili || showBeer ">
 	<button type="submit" class="btn btn-lg customFonts" ng-click="refreshVotes()">REFRESH</button>&nbsp;&nbsp;
+</div>
+<div class="button-align" ng-show="showEnter">
+	<button type="submit" class="btn btn-lg customFonts" ng-click="insertNewItems()">INSERT</button>&nbsp;&nbsp;
 </div>
