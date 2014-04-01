@@ -12,13 +12,18 @@ votingApp.config(function($routeProvider) {
 			controller  : 'loginController'
 		})
 		//routeto the chili page
+		.when('/admin', {
+			templateUrl : 'pages/admin.html',
+			controller  : 'adminController'
+		})
+		//routeto the chili page
 		.when('/chili', {
 			templateUrl : 'pages/chili.html',
-			controller  : 'voteController'
+			controller  : 'chiliController'
 		})
 		// route for the vote page
-		.when('/vote', {
-			templateUrl : 'pages/vote.html',
-			controller  : 'voteController'
+		.when('/beer', {
+			templateUrl : 'pages/beer.html',
+			controller  : 'beerController'
 		});
 });

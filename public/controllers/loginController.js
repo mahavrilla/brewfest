@@ -20,7 +20,7 @@ votingApp.controller('loginController', function($scope, $http, $location, login
 	      			$scope.errorMessage = 'this code has already been submitted, use a different code';
 	      		} else {
 	      			$scope.myName = loginService.isLoggedIn;
-	      			$scope.go('/vote');
+	      			$scope.go('/beer');
 	      		}
 	      	} else {
 	      		$scope.showLoginError = true;

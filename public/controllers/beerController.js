@@ -1,4 +1,4 @@
-votingApp.controller('voteController', function($scope, $http, $location, $timeout, loginService, votingService) {
+votingApp.controller('beerController', function($scope, $http, $location, $timeout, loginService, votingService) {
 	$scope.beerItems = [];
 	$scope.updatedItems = [];
     $scope.message = '';
@@ -18,7 +18,7 @@ votingApp.controller('voteController', function($scope, $http, $location, $timeo
     	$location.path( '/' );
     }
 
-    $http.get('/beers') 
+    $http.get('/beers?{"$sort":{"name":%201}}')
   		.error(function(err) { 
   			return alert(err.message || "an error occurred");
   		}).then(function(results) {
@@ -29,7 +29,8 @@ votingApp.controller('voteController', function($scope, $http, $location, $timeo
 
     $http.get('/votes', { 
     	params : {
-      	codeId: loginService.codeId
+      		codeId: loginService.codeId,
+      		isBeer: true
       }
  	})
  	.error(function(err) {
@@ -52,7 +53,8 @@ votingApp.controller('voteController', function($scope, $http, $location, $timeo
 	      codeId: loginService.codeId,
 	      code: loginService.codeNumber,
 	      beerId: beer.id,
-	      rating: rating
+	      rating: rating,
+	      isBeer: true
 	    }).success( function(beer) {
 	    	//Change field to Update.
 	    	$scope.addAlert(beerName, rating);
@@ -66,7 +68,8 @@ votingApp.controller('voteController', function($scope, $http, $location, $timeo
     	//check to see if that record exists yet. 
 		$http.put('/votes', {
 		  id: voteId,
-	      rating: rating
+	      rating: rating,
+	      isBeer: true
 	    }).success( function( beer) {
 	    	//Change field to Update. 
 	    	$scope.addAlert(beerName, rating);
@@ -81,7 +84,8 @@ votingApp.controller('voteController', function($scope, $http, $location, $timeo
 		$http.get('/votes', { 
 	    	params : {
 	      	codeId: loginService.codeId,
-	      	beerId: beer.id
+	      	beerId: beer.id,
+	      	isBeer: true
      		}
  		}).success(function(result) {
  			if(result.length == 0) {

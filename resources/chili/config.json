@@ -1,18 +1,18 @@
 {
 	"type": "Collection",
 	"properties": {
-		"Name": {
-			"name": "Name",
+		"name": {
+			"name": "name",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
-			"id": "Name",
+			"id": "name",
 			"order": 0
 		},
 		"rating": {
 			"name": "rating",
-			"type": "string",
-			"typeLabel": "string",
+			"type": "number",
+			"typeLabel": "number",
 			"required": false,
 			"id": "rating",
 			"order": 1

@@ -27,11 +27,19 @@
 		},
 		"rating": {
 			"name": "rating",
-			"type": "string",
-			"typeLabel": "string",
+			"type": "number",
+			"typeLabel": "number",
 			"required": false,
 			"id": "rating",
 			"order": 3
+		},
+		"isBeer": {
+			"name": "isBeer",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "isBeer",
+			"order": 4
 		}
 	}
 }
