@@ -12,9 +12,9 @@
 	
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
     <!--Custom Styles-->
-    <link href="signin.css" rel="stylesheet">
-	<link href="vote.css" rel="stylesheet">
-	<link href="nav.css" rel="stylesheet">
+    <link href="signin.css" rel="stylesheet"/>
+	<link href="vote.css" rel="stylesheet"/>
+	<link href="nav.css" rel="stylesheet"/>
 
 	<!-- SPELLS -->
 	<!-- load angular via CDN -->
@@ -24,7 +24,11 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/0.7.2/angular-strap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.6.0/ui-bootstrap-tpls.min.js"></script>
-	<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"/>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script>
+	<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.min.css" rel="stylesheet" />
+
+	<!--Custom Codes and shizzz-->
 	<script src="script.js"></script>
 	<script src="controllers/beerController.js"></script>
 	<script src="controllers/adminController.js"></script>
@@ -35,6 +39,8 @@
 	<script src="Services/adminService.js"></script>
 	<script src="Services/votingService.js"></script>
 	<script src="Services/dataService.js"></script>
+	<script src="http://code.angularjs.org/1.1.2/angular-sanitize.js"></script>
+	<script src="ng-csv.min.js"></script>
 
 	</head>
 	<body ng-controller="loginController">
@@ -48,7 +54,7 @@
 				<nav>
 					<a href="#" id="menu-icon"></a>
 					<ul>
-						<li><a href="#" class="current customFonts">Home</a></li>
+						<li><a href="#" ng-click="logout()" class="current customFonts">Home</a></li>
 						<li><a href="#" class="links customFonts">About</a></li>
 					</ul>
 				</nav>

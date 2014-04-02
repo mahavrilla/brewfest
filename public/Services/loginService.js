@@ -11,6 +11,13 @@ votingApp.service('loginService', function(){
 		this.locked = locked; 
 	};
 
+	this.logout = function() {
+		this.isLoggedIn = false; 
+		this.codeId = ''; 
+		this.codeNumber = '';
+		this.locked = false; 
+	}
+
 	this.getStatus = function( ) {
 		return this.isLoggedIn;
 	}

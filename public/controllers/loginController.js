@@ -33,9 +33,13 @@ votingApp.controller('loginController', function($scope, $http, $location, login
 		});
 	}
 
-		$scope.go = function ( path ) {
-	  		$location.path( path );
-		};
+	$scope.logout = function() {
+		loginService.logout();
+	}
+
+	$scope.go = function ( path ) {
+  		$location.path( path );
+	};
 
 
 });

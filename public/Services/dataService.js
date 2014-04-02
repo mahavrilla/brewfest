@@ -14,12 +14,30 @@ votingApp.service('dataService', function($http){
 			return promise;
 	}
 
-	this.getVotes = function() {
-			var promise = $http.get('/votes').then( function( response) {
+	this.getVotes = function( code) {
+			var promise = $http.get('/votes', {
+				params: {
+					code: code
+				}
+			}).then( function( response) {
   				return response.data;
 			});
 			return promise;
 	}
+
+	//Creates a new voting record. 
+ 	this.insertNewCodes = function( code, isUsed) {
+    	//check to see if that record exists yet. 
+		var promise = $http.post('/codes', {
+	      Code: code,
+	      Used: isUsed
+	    }).then( function( response) {
+	    	return response;
+	    });	
+
+	    return promise; 
+ 	}
+
 
 	//Creates a new voting record. 
  	this.createNewVote = function( codeId, codeNumber, rating, id, isBeer) {
@@ -86,6 +104,27 @@ votingApp.service('dataService', function($http){
  		}).success( function(result) {
 
  		});
+ 	}
+
+ 	this.getAllCodes = function() {
+ 		//check to see if the code exists
+		var promise = $http.get('/codes').then( function( response) {
+	    	return response.data;
+	    });	
+
+	    return promise;
+ 	}
+
+ 	this.updateCode = function( codeId, isLocked) {
+ 		//check to see if the code exists
+		var promise = $http.put('/codes', { 
+			id: codeId,
+			Used: isLocked
+		}).then( function( response) {
+	    	return response.data;
+	    });	
+
+	    return promise;
  	}
 });
 

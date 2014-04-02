@@ -1,5 +1,5 @@
 // create the controller and inject Angular's $scope
-votingApp.controller('adminController', function($scope, $http, $location, adminService, $window) {
+votingApp.controller('adminController', function($scope, $http, $location, adminService, dataService, $window) {
 
 	// create a message to display in our view
 	$scope.Math = window.Math;
@@ -13,175 +13,225 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
 	$scope.predicate = '-rating';
 	$scope.showBeer = true;
 	$scope.showChili = false;
-	$scope.showEnter = false;
+	$scope.showManage = false;
+	$scope.showExtras = false;
 	$scope.newItems = [];
+	$scope.count = 0;
+	//$scope.getArray = [{a: $scope.codes[0]}, {a: $scope.code[1] }];
+
+    $scope.generateCodes = function() {
+        $scope.csvData = [];
+        $scope.count = 1;
+    
+        for( var x = 0; x < 1; x++) {
+            $scope.randomNumber = Math.floor(Math.random()*9000) + 1000;
+            $scope.csvData.push({ a: $scope.randomNumber });
+        }
+        $scope.insertRandomCodes();
+    }
+
+    $scope.insertRandomCodes = function() {
+        angular.forEach($scope.csvData, function(value, key) {
+            dataService.insertNewCodes( value.a.toString() , false).then( function( response) {
+            });
+        });
+    }
+
+    $scope.getCodes = function() {
+        $scope.csvData = [];
+        dataService.getAllCodes().then( function( result) {
+            angular.forEach(result, function(value, key) {
+                 $scope.csvData.push( { a: value.Code} );
+            });
+        });
+    }
 
 	$scope.loadData = function()  {
-		$http.get('/votes', { 
-		 	})
-		 	.error(function(err) {
-		      // Alert if there's an error
-		      return alert(err.message || "an error occurred");
-		    })
-		    .then( function(results) {
-		 		$scope.votes = results.data;
-		 		adminService.addVotes( results.data);
-		 		if($scope.votes && $scope.beers) {
-		 			$scope.calculate( $scope.votes, $scope.beers);
-		 		}
 
-		    });
+		//Love me some promises to get data. 
+		dataService.getBeers().then(function( d) {
+	    	$scope.beers = d;
 
-		    $http.get('/beers')
-		 	.error(function(err) {
-		      // Alert if there's an error
-		      return alert(err.message || "an error occurred");
-		    })
-		    .then( function(results) {
-		 		$scope.beers = results.data;
-		 		adminService.addItems( results.data);
-		 		//$scope.beers = adminService.getRatings();
-		 		if($scope.votes && $scope.beers) {
-		 			$scope.calculate( $scope.votes, $scope.beers);
-		 		}
-		    });
+	    	//level 2
+	    	dataService.getVotes().then(function( votes) {
+	    		$scope.votes = votes;
+	    		$scope.calculate( $scope.votes, $scope.beers);
+	   		 });
+	    });
 
+		//Promises bitch. 
+		dataService.getChili().then(function( d) {
+	    	$scope.chili = d;
 
-		    $http.get('/chili')
-		 	.error(function(err) {
-		      // Alert if there's an error
-		      return alert(err.message || "an error occurred");
-		    })
-		    .then( function(results) {
-		 		$scope.chili = results.data;
-		 		//adminService.addItems( results.data);
-		 		//$scope.beers = adminService.getRatings();
-		 		if($scope.votes && $scope.chili) {
-		 			$scope.calculate( $scope.votes, $scope.chili);
-		 		}
-		    });
+	    	//level 2
+	    	dataService.getVotes().then(function( votes) {
+	    		$scope.votes = votes;
+	    		$scope.calculate( $scope.votes, $scope.chili);
+	   		 });
+	    });
+	}
 
-	    }
-
-	    $scope.calculate = function(voteItems, sumBeers) {
-	    	for( var x = 0; x < sumBeers.length; x++) {
-	    		$scope.sum = 0;
-				for( var i = 0; i < voteItems.length; i++) {
-					if(voteItems[i].beerId == sumBeers[x].id) {
-						//sumBeers[i].rating += voteItems[x].rating;
-						$scope.sum += $window.Math.round(sumBeers[x].rating + voteItems[i].rating);
-						//alert(sumBeers[x].name + ' ' + $scope.sum + ' ' + voteItems[i].rating);
-					}
+    $scope.calculate = function(voteItems, items) {
+    	for( var x = 0; x < items.length; x++) {
+    		$scope.sum = 0;
+			for( var i = 0; i < voteItems.length; i++) {
+				if(voteItems[i].beerId == items[x].id) {
+					$scope.sum += $window.Math.round(items[x].rating + voteItems[i].rating);
 				}
-				sumBeers[x].rating = $scope.sum;
 			}
-	    }
+			items[x].rating = $scope.sum;
+		}
+    }
 
-	    $scope.showBeerVotes = function() {
-	    	$scope.showChili = false;
-	    	$scope.showBeer = true;
-	    	$scope.showEnter = false;
-	    }
+    $scope.loadData();
 
-	     $scope.showChiliVotes = function() {
-	    	$scope.showChili = true;
-	    	$scope.showBeer = false;
-	    	$scope.showEnter = false;
-	    }
+    $scope.showBeerVotes = function() {
+    	$scope.showChili = false;
+    	$scope.showBeer = true;
+    	$scope.showManage = false;
+    	$scope.showExtras = false;
+    }
 
-	    $scope.showEnterItems = function() {
-	    	$scope.showChili = false;
-	    	$scope.showBeer = false;
-	    	$scope.showEnter = true;
-	    }
+     $scope.showChiliVotes = function() {
+    	$scope.showChili = true;
+    	$scope.showBeer = false;
+    	$scope.showManage = false;
+    	$scope.showExtras = false;
+    }
 
-	    $scope.refreshVotes = function() {
-	    	$scope.loadData();
-	    }
+    $scope.showManageItems = function() {
+    	$scope.showChili = false;
+    	$scope.showBeer = false;
+    	$scope.showManage = true;
+    	$scope.showExtras = false;
+    }
 
-	    $scope.addNewItem = function() {
-	    	$scope.newItems.push({ name: '', isBeer: false, isBrewersChoice: false, isNew : true});
-	    }
+     $scope.showExtraItems = function() {
+    	$scope.showChili = false;
+    	$scope.showBeer = false;
+    	$scope.showManage = false;
+    	$scope.showExtras = true;
+    }
 
-	    $scope.removeNewItem = function(index) {
-	    	$scope.removeFromDatabase( $scope.newItems[index].id, $scope.newItems[index].isBeer );
-	    	$scope.newItems.splice(index, 1);
-	    }
+    $scope.refreshVotes = function() {
+    	$scope.loadData();
+    }
 
-	    $scope.removeFromDatabase = function(id, isBeer) {
-	    	if(isBeer) {
-	    		$http.delete('/beers?id=' + id, { 
-		 		}).success(function(result) {
-	 			});
-	    	} else {
-	    		$http.delete('/chili?id=' + id, { 
-		 		}).success(function(result) {
-	 			});
-	    	}
-	    	
-	    }
+    $scope.addNewItem = function() {
+    	$scope.newItems.push({ name: '', isBeer: false, isBrewersChoice: false, isNew : true});
+    }
 
-	    $scope.getItems = function() {
-	    	$http.get('/beers', { 
+    $scope.removeNewItem = function(index) {
+    	$scope.removeFromDatabase( $scope.newItems[index].id, $scope.newItems[index].isBeer );
+    	$scope.newItems.splice(index, 1);
+    }
+
+    $scope.removeFromDatabase = function(id, isBeer) {
+    	if(isBeer) {
+    		$http.delete('/beers?id=' + id, { 
 	 		}).success(function(result) {
-	 			if(result.length == 0) {
-	 				$scope.newItems.push({ id: '', name: '', isBeer: false, isBrewersChoice: false, disabled: false})
-	 			} 
-	 			angular.forEach(result, function(value, key) {
-	 				$scope.newItems.push( { id: value.id, name: value.name, isBeer: true, isBrewersChoice: value.isBrewersChoice, disabled: true});
-	 			});
-	 		});
-
-	 		$http.get('/chili', { 
+ 			});
+    	} else {
+    		$http.delete('/chili?id=' + id, { 
 	 		}).success(function(result) {
-	 			if(result.length == 0) {
-	 				$scope.newItems.push({ id: '', name: '', isBeer: false, isBrewersChoice: false})
-	 			} 
-	 			angular.forEach(result, function(value, key) {
-	 				$scope.newItems.push( { id: value.id, name: value.name, isBeer: false, isBrewersChoice: false, disabled: true} );
-	 			});
-	 		});
-	    }
+ 			});
+    	}
+    }
 
-	    $scope.getItems();
+    $scope.lockAllCodes = function() {
+    	$scope.allCodes = [];
+    	$scope.count = 0;
+    	dataService.getAllCodes().then( function( d) {
+    		$scope.allCodes = d;
+    
+    		//level 2
+    		angular.forEach($scope.allCodes, function(value, key) {
+    			dataService.updateCode( value.id, true).then( function( response) {
+    				$scope.count++;
+                    $scope.lockMessage = 'Locked ' + $scope.count  +' codes';
+    			});
+                
+    		});
+    	});
+    }
+
+    $scope.unlockAllCodes = function() {
+    	$scope.allCodes = [];
+    	$scope.count = 0;
+    	dataService.getAllCodes().then( function( d) {
+    		$scope.allCodes = d;
+    
+    		//level 2
+    		angular.forEach($scope.allCodes, function(value, key) {
+    			dataService.updateCode( value.id, false).then( function( response) {
+                    $scope.count++;
+    				$scope.unlockMessage = 'Unlocked ' + $scope.count + ' codes';
+    			});
+    		});
+    	});
+    }
+	    
+    $scope.getItems = function() {
+    	$http.get('/beers', { 
+ 		}).success(function(result) {
+ 			if(result.length == 0) {
+ 				$scope.newItems.push({ id: '', name: '', isBeer: false, isBrewersChoice: false, disabled: false})
+ 			} 
+ 			angular.forEach(result, function(value, key) {
+ 				$scope.newItems.push( { id: value.id, name: value.name, isBeer: true, isBrewersChoice: value.isBrewersChoice, disabled: true});
+ 			});
+ 		});
+
+ 		$http.get('/chili', { 
+ 		}).success(function(result) {
+ 			if(result.length == 0) {
+ 				$scope.newItems.push({ id: '', name: '', isBeer: false, isBrewersChoice: false})
+ 			} 
+ 			angular.forEach(result, function(value, key) {
+ 				$scope.newItems.push( { id: value.id, name: value.name, isBeer: false, isBrewersChoice: false, disabled: true} );
+ 			});
+ 		});
+    }
+
+	$scope.getItems();
 
 
-	    $scope.insertNewItems = function() {
-	    	$scope.newBeerItems = [];
-	    	$scope.newChilItems = [];
+    $scope.insertNewItems = function() {
+    	$scope.newBeerItems = [];
+    	$scope.newChilItems = [];
 
-	    	angular.forEach($scope.newItems, function(value, key) {
-	    		if(value.isBeer && value.name && value.isNew) {
-	    			$scope.insertBeers(value);
-	    			value.disabled = true;
-	    		} else if(value.name && value.isNew) {
-	    			$scope.insertChilis(value);
-	    			value.disabled = true;
-	    		} 
-	    	});
-	    }
+    	angular.forEach($scope.newItems, function(value, key) {
+    		if(value.isBeer && value.name && value.isNew) {
+    			$scope.insertBeers(value);
+    			value.disabled = true;
+    		} else if(value.name && value.isNew) {
+    			$scope.insertChilis(value);
+    			value.disabled = true;
+    		} 
+    	});
+    }
 
-	    $scope.insertBeers = function(beer) {
-	    	$http.post('/beers', {
-	    		name: beer.name,
-	    		isBrewersChoice: beer.isBrewersChoice,
-	    		rating: 0
-		    }).success( function(beer) {
-		    }).error(function(err) {
-		      // Alert if there's an error
-		      return alert(err.message || "an error occurred");
-		    });
-	    }
+    $scope.insertBeers = function(beer) {
+    	$http.post('/beers', {
+    		name: beer.name,
+    		isBrewersChoice: beer.isBrewersChoice,
+    		rating: 0
+	    }).success( function(beer) {
+	    }).error(function(err) {
+	      // Alert if there's an error
+	      return alert(err.message || "an error occurred");
+	    });
+    }
 
-	    $scope.insertChilis = function(chili) {
-	    	$http.post('/chili', {
-	    		name: chili.name,
-	    		rating: 0
-		    }).success( function(beer) {
-		    }).error(function(err) {
-		      // Alert if there's an error
-		      return alert(err.message || "an error occurred");
-		    });
-	    }
+    $scope.insertChilis = function(chili) {
+    	$http.post('/chili', {
+    		name: chili.name,
+    		rating: 0
+	    }).success( function(beer) {
+	    }).error(function(err) {
+	      // Alert if there's an error
+	      return alert(err.message || "an error occurred");
+	    });
+    }
 
 });

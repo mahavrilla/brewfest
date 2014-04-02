@@ -2,7 +2,6 @@ votingApp.service('adminService', function(){
 	var sumVotes = [];
 	var voteItems = [];
 
-
 	this.addVotes = function(votes) {
 		this.sumVotes = votes;
 	}

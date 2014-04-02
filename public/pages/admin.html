@@ -1,13 +1,16 @@
 <!-- home.html -->
 <div class="btn-group btn-group-justified">
 	<div class="btn-group">
-		<button ng-click="showBeerVotes()" class="btn btn-default customFonts">Beer</button>
+		<button ng-click="showBeerVotes()" ng-class="{activeBtn: showBeer, inactiveBtn: !showBeer }" class="btn customFonts">Beer</button>
 	</div>
 	<div class="btn-group">
-		<button ng-click="showChiliVotes()" class="btn btn-default customFonts">Chili</button>
+		<button ng-click="showChiliVotes()" ng-class="{activeBtn: showChili, inactiveBtn: !showChili }"  class="btn customFonts">Chili</button>
 	</div>
 	<div class="btn-group">
-		<button ng-click="showEnterItems()" class="btn btn-default customFonts">Manage</button>
+		<button ng-click="showManageItems()" ng-class="{activeBtn: showEnter, inactiveBtn: !showEnter }" class="btn customFonts">Manage</button>
+	</div>
+	<div class="btn-group">
+		<button ng-click="showExtraItems()" ng-class="{activeBtn: showExtras, inactiveBtn: !showExtras}" class="btn customFonts">Extras</button>
 	</div>
 </div>
 </br>
@@ -26,6 +29,7 @@
 	        <tr>
 	            <td>
 	                {{item.name}}
+	                <span ng-show="item.isBrewersChoice" class="icon"><img src="../images/icon.png"></span>
 	            </td>
 	            <td>
 	            	{{item.rating}}
@@ -35,7 +39,7 @@
 	</table>
 </div>
 
-<div id="beers" ng-show="showChili"> 
+<div id="chili" ng-show="showChili"> 
 	<table align="center" class="table table-striped">
 	    <thead class="customFontsBold">
 	        <th >
@@ -59,7 +63,7 @@
 </div>
 
 
-<div id="beers" ng-show="showEnter"> 
+<div id="manage" ng-show="showManage"> 
 	<table align="center" class="table table-striped">
 	    <thead class="customFontsBold">
 	        <th >
@@ -96,6 +100,62 @@
 	    </tbody>
 	</table>
 </div>
+
+<div id="extras" ng-show="showExtras"> 
+	<table align="center" class="table table-striped">
+	    <thead class="customFontsBold">
+	        <th >
+	            Task
+	        </th>
+	        <th>
+	           	Outcome
+	        </th>
+	    </thead>
+	    <tbody class="customFonts">
+	        <tr>
+	            <td>
+			    	<div class="button-align" ng-show="showExtras">
+						<button type="submit" class="btn btn-lg btnSubmit customFonts" ng-click="generateCodes()">GENERATE CODES</button>&nbsp;&nbsp;
+					</div>
+	            </td>
+	            <td>
+	            	<div class="button-align" ng-show="showExtras">
+						<button type="submit" class="btn btn-lg btnSubmit customFonts" ng-click="getCodes()">GET CODES</button>&nbsp;&nbsp;
+					</div>
+	            	<!--<a href="#" ng-csv="getValues()" >Click Here for CSV format</a>-->
+	            </td>
+	            <td>
+	            	<div class="button-align" ng-show="showExtras">
+						<button type="submit" class="btn btn-lg btnSubmit customFonts" ng-csv="csvData">EXPORT CODES</button>&nbsp;&nbsp;
+					</div>
+	            	<!--<a href="#" ng-csv="getValues()" >Click Here for CSV format</a>-->
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>
+	            	<div class="button-align" ng-show="showExtras">
+						<button type="submit" class="btn btn-lg btnSubmit customFonts" ng-click="lockAllCodes()">LOCK ALL CODES</button>&nbsp;&nbsp;
+					</div>
+	            </td>
+	            <td>
+	            	{{ lockMessage }}
+	            </td>
+
+	        </tr>
+	        <tr>
+	            <td>
+	            	<div class="button-align" ng-show="showExtras">
+						<button type="submit" class="btn btn-lg btnSubmit customFonts" ng-click="unlockAllCodes()">UNLOCK ALL CODES</button>&nbsp;&nbsp;
+					</div>
+	            </td>
+	            <td>
+	            	{{ unlockMessage }}
+	            </td>
+	        </tr>
+	    </tbody>
+	</table>
+</div>
+
 
 <div class="button-align" ng-show="showChili || showBeer ">
 	<button type="submit" class="btn btn-lg btnSubmit customFonts" ng-click="refreshVotes()">REFRESH</button>&nbsp;&nbsp;

@@ -6,15 +6,30 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
 	$scope.showBeer = true;
 	$scope.showChili = false;
 
+    toastr.options = {
+                      "closeButton": false,
+                      "debug": false,
+                      "positionClass": "toast-top-center",
+                      "onclick": null,
+                      "showDuration": "300",
+                      "hideDuration": "1000",
+                      "timeOut": "2000",
+                      "extendedTimeOut": "1000",
+                      "showEasing": "swing",
+                      "hideEasing": "linear",
+                      "showMethod": "fadeIn",
+                      "hideMethod": "fadeOut"
+                    }
+
     if(!loginService.isLoggedIn) {
     	$location.path( '/' );
     }
-    
+
     dataService.getBeers().then(function(d) {
     	$scope.beerItems = d;
 
     	//level 2
-    	dataService.getVotes().then(function( votes) {
+    	dataService.getVotes( loginService.codeNumber).then(function( votes) {
     		$scope.votes = votes;
     		$scope.beerItems = votingService.updateNewRatings($scope.beerItems, votes);
    		 });
@@ -24,7 +39,7 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
     	$scope.chiliItems = d;
 
     	//level 2
-    	dataService.getVotes().then(function( votes) {
+    	dataService.getVotes( loginService.codeNumber).then(function( votes) {
     		$scope.votes = votes;
     		$scope.chiliItems = votingService.updateNewRatings($scope.chiliItems, votes);
    		 });
@@ -50,12 +65,16 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
     		if( $scope.existingVotes.length == 0) {
     			// create new voting record
 	    		dataService.createNewVote(loginService.codeId, loginService.codeNumber, rating, item.id, isBeer ).then(function(d) {
-	    			$scope.addAlert(item.name, rating);
+	    			
+                    
+                    toastr.success(item.name + ' was updated to ' + rating, 'success');
+                    //$scope.addAlert(item.name, rating);
 	    		});
     		} else {
     			// update existing vote: 
 	    		dataService.updateExistingVote($scope.existingVotes[0].id, rating, isBeer).then(function( d) {
-	    			$scope.addAlert(item.name, rating);
+                    toastr.success(item.name + ' was updated to ' + rating, 'success');
+	    			//$scope.addAlert(item.name, rating);
     			});
     		}
     	});
@@ -75,4 +94,9 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
 	$scope.finalizeVote = function() {
 		dataService.finalize();
 	};
+
+    $scope.showToast = function() {
+        toastr.info('Are you the 6 fingered man?');
+    };
+
 });

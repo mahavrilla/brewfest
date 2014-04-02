@@ -5,7 +5,7 @@
 		<!--<a href="#beer" class="btn activeBtn customFonts">Beer</a>-->
 	</div>
 	<div class="btn-group">
-		<button ng-click="showChilis()" ng-class="{activeBtn: showChili, inactiveBtn: !showChili}" class="btn inactiveBtn customFonts">Chili</button>
+		<button ng-click="showChilis()" ng-class="{activeBtn: showChili, inactiveBtn: !showChili}" class="btn customFonts">Chili</button>
 		<!--<a href="#chili" class="btn inactiveBtn customFonts">Chili</a>-->
 	</div>			
 </div>
@@ -13,6 +13,7 @@
 </br>
 <p class="customFonts">You've tasted, you've tested, you may have even gotten a bit tipsy. Now rate your favorite chili below.</p>
 <alert ng-repeat="alert in alerts" class="customFonts" type="alert.type">{{alert.msg}}</alert>
+
 <div id="beers" ng-show="showBeer"> 
 	<table align="center" class="table table-striped">
 	    <thead class="customFontsBold">

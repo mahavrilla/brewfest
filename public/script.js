@@ -1,6 +1,6 @@
 // script.js
 // create the module and name it votingApp
-var votingApp = angular.module('votingApp', ['ui.bootstrap']);
+var votingApp = angular.module('votingApp', ['ui.bootstrap', 'ngCsv', 'ngSanitize']);
 
 // configure our routes
 votingApp.config(function($routeProvider) {

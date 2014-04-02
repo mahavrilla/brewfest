@@ -9,9 +9,9 @@ body {
   margin-top:  -5px;
 }
 
-.activeBtn {
-  
-  
+.toast-top-width {
+  position: fixed;
+  width: 100%;
 }
 
 .btn.activeBtn {
@@ -26,10 +26,6 @@ body {
   background-color: #cfcfcf;
   color: #404040;
   height: 50px;
-}
-
-.inactiveBtn {
- 
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -103,4 +99,19 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+
+.toast-top-center { top: 12px; left: 50%; margin-left: -182px; }
+
+@media all and (max-width: 240px) {
+.toast-top-center { margin-left: -100px; }
+}
+
+@media all and (min-width: 241px) and (max-width: 320px) {
+.toast-top-center { margin-left: -100px; }
+}
+
+@media all and (min-width: 321px) and (max-width: 480px) {
+.toast-top-center { margin-left: -125px; }
 }
