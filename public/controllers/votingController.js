@@ -5,6 +5,7 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
 	$scope.alerts = [];
 	$scope.showBeer = true;
 	$scope.showChili = false;
+  $scope.searchItems = '';
 
     toastr.options = {
                       "closeButton": false,
@@ -46,9 +47,13 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
 
     });
 
+    $scope.clearSearch = function() {
+      $scope.searchItems = '';
+    }
+
     $scope.showChilis = function() {
     	$scope.showBeer = false;
-		$scope.showChili = true;
+		  $scope.showChili = true;
     }
 
     $scope.showBeers = function() {

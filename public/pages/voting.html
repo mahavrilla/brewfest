@@ -14,7 +14,11 @@
 <p class="customFonts">You've tasted, you've tested, you may have even gotten a bit tipsy. Now rate your favorite chili below.</p>
 <alert ng-repeat="alert in alerts" class="customFonts" type="alert.type">{{alert.msg}}</alert>
 
-<div id="beers" ng-show="showBeer"> 
+<div id="beers" ng-show="showBeer">
+	<div class="input-group">
+  		<input type="search" class="form-control" ng-model="searchItems" placeholder="Search...">
+  		<span class="input-group-addon" ng-click="clearSearch()">X</span>
+	</div>
 	<table align="center" class="table table-striped">
 	    <thead class="customFontsBold">
 	        <th >
@@ -24,7 +28,7 @@
 	            Rating
 	        </th>
 	    </thead>
-	    <tbody ng-repeat="item in beerItems" class="customFonts">
+	    <tbody ng-repeat="item in beerItems | filter:searchItems" class="customFonts">
 	        <tr>
 	            <td>
 	                {{item.name}}
@@ -49,6 +53,11 @@
 	</table>
 </div>
 <div id="chilis" ng-show="showChili"> 
+	<div class="input-group">
+  		<input type="search"  class="form-control" ng-model="searchItems" placeholder="Search...">
+  		<span class="input-group-addon">X</span>
+	</div>
+
 	<table align="center" class="table table-striped">
 	    <thead class="customFontsBold">
 	        <th >
@@ -58,7 +67,7 @@
 	            Rating
 	        </th>
 	    </thead>
-	    <tbody ng-repeat="item in chiliItems" class="customFonts">
+	    <tbody ng-repeat="item in chiliItems | filter:searchItems " class="customFonts">
 	        <tr>
 	            <td>
 	                {{item.name}}
