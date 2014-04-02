@@ -21,6 +21,11 @@ votingApp.config(function($routeProvider) {
 			templateUrl : 'pages/chili.html',
 			controller  : 'chiliController'
 		})
+		//routeto the chili page
+		.when('/voting', {
+			templateUrl : 'pages/voting.html',
+			controller  : 'votingController'
+		})
 		// route for the vote page
 		.when('/beer', {
 			templateUrl : 'pages/beer.html',

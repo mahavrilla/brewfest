@@ -4,8 +4,32 @@ body {
   padding-bottom: 20px;
 }
 
-.iconColor {
+.icon {
   color: #f29400;
+  margin-top:  -5px;
+}
+
+.activeBtn {
+  
+  
+}
+
+.btn.activeBtn {
+  color: #404040;
+  background-color: white;
+  height: 50px;
+  font-size: 22px;
+}
+
+.btn.inactiveBtn {
+  font-size: 22px;
+  background-color: #cfcfcf;
+  color: #404040;
+  height: 50px;
+}
+
+.inactiveBtn {
+ 
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -79,16 +103,4 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
-}
-
-/* Flatten das boostrap */
-.well, .navbar-inner, .popover, .btn, .tooltip, input, select, textarea, pre, .progress, .modal, .add-on, .alert, .table-bordered, .nav>.active>a, .dropdown-menu, .tooltip-inner, .badge, .label, .img-polaroid {
-  -moz-box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-  -webkit-border-radius: 0px !important;
-  -moz-border-radius: 0px !important;
-  border-radius: 0px !important;
-  border-collapse: collapse !important;
-  background-image: none !important;
 }

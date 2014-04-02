@@ -1,0 +1,84 @@
+<!-- home.html -->
+<div class="btn-group btn-group-justified">
+	<div class="btn-group">
+		<button ng-click="showBeers()" ng-class="{activeBtn: showBeer, inactiveBtn: !showBeer}" class="btn customFonts">Beer</button>
+		<!--<a href="#beer" class="btn activeBtn customFonts">Beer</a>-->
+	</div>
+	<div class="btn-group">
+		<button ng-click="showChilis()" ng-class="{activeBtn: showChili, inactiveBtn: !showChili}" class="btn inactiveBtn customFonts">Chili</button>
+		<!--<a href="#chili" class="btn inactiveBtn customFonts">Chili</a>-->
+	</div>			
+</div>
+
+</br>
+<p class="customFonts">You've tasted, you've tested, you may have even gotten a bit tipsy. Now rate your favorite chili below.</p>
+<alert ng-repeat="alert in alerts" class="customFonts" type="alert.type">{{alert.msg}}</alert>
+<div id="beers" ng-show="showBeer"> 
+	<table align="center" class="table table-striped">
+	    <thead class="customFontsBold">
+	        <th >
+	            Name
+	        </th>
+	        <th>
+	            Rating
+	        </th>
+	    </thead>
+	    <tbody ng-repeat="item in beerItems" class="customFonts">
+	        <tr>
+	            <td>
+	                {{item.name}}
+	               <!-- <span ng-show="item.isBrewersChoice" class="glyphicon glyphicon-star icon"></span>-->
+	                <span ng-show="item.isBrewersChoice" class="icon"><img src="../images/icon.png"></span>
+	            </td>
+	            <td>
+	            	<div id="select-native-1-button" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow">
+	            	<span></span>
+		            	<select class="form-control" name="select-native-1" id="select-native-1" ng-model="item.rating" ng-change="saveVote( item, item.rating, true)">
+		            			<option value="0">0</option>
+			                    <option value="1">1</option>
+			                    <option value="2">2</option>
+			                    <option value="3">3</option>
+			                    <option value="4">4</option>
+			                    <option value="5">5</option>
+                		</select>
+            		</div>
+	            </td>
+	        </tr>
+	    </tbody>
+	</table>
+</div>
+<div id="chilis" ng-show="showChili"> 
+	<table align="center" class="table table-striped">
+	    <thead class="customFontsBold">
+	        <th >
+	            Name
+	        </th>
+	        <th>
+	            Rating
+	        </th>
+	    </thead>
+	    <tbody ng-repeat="item in chiliItems" class="customFonts">
+	        <tr>
+	            <td>
+	                {{item.name}}
+	            </td>
+	            <td>
+	            	<div id="select-native-1-button" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow">
+	            	<span></span>
+		            	<select class="form-control" name="select-native-1" id="select-native-1" ng-model="item.rating" ng-change="saveVote( item, item.rating)">
+		            			<option value="0">0</option>
+			                    <option value="1">1</option>
+			                    <option value="2">2</option>
+			                    <option value="3">3</option>
+			                    <option value="4">4</option>
+			                    <option value="5">5</option>
+                		</select>
+            		</div>
+	            </td>
+	        </tr>
+	    </tbody>
+	</table>
+</div>
+<div class="button-align">
+	<button type="submit" class="btn btnSubmit btn-lg customFonts" ng-click="finalizeVote()">SUBMIT YOUR VOTES</button>&nbsp;&nbsp;
+</div>

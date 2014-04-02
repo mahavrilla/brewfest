@@ -47,7 +47,7 @@ votingApp.controller('beerController', function($scope, $http, $location, $timeo
     	votingService.updateRatings();
     };
 
-   	$scope.createNewVote = function(beer,rating) {
+   	$scope.createNewVote = function(beer,rating, name) {
     	//check to see if that record exists yet. 
 		$http.post('/votes', {
 	      codeId: loginService.codeId,
@@ -57,7 +57,7 @@ votingApp.controller('beerController', function($scope, $http, $location, $timeo
 	      isBeer: true
 	    }).success( function(beer) {
 	    	//Change field to Update.
-	    	$scope.addAlert(beerName, rating);
+	    	$scope.addAlert(name, rating);
 	    }).error(function(err) {
 	      // Alert if there's an error
 	      return alert(err.message || "an error occurred");

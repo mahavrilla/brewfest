@@ -109,9 +109,12 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
 	    }
 
 	    $scope.removeFromDatabase = function(id, isBeer) {
-	    	alert(id + isBeer);
 	    	if(isBeer) {
 	    		$http.delete('/beers?id=' + id, { 
+		 		}).success(function(result) {
+	 			});
+	    	} else {
+	    		$http.delete('/chili?id=' + id, { 
 		 		}).success(function(result) {
 	 			});
 	    	}
@@ -128,13 +131,14 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
 	 				$scope.newItems.push( { id: value.id, name: value.name, isBeer: true, isBrewersChoice: value.isBrewersChoice, disabled: true});
 	 			});
 	 		});
+
 	 		$http.get('/chili', { 
 	 		}).success(function(result) {
 	 			if(result.length == 0) {
 	 				$scope.newItems.push({ id: '', name: '', isBeer: false, isBrewersChoice: false})
 	 			} 
 	 			angular.forEach(result, function(value, key) {
-	 				$scope.newItems.push( value );
+	 				$scope.newItems.push( { id: value.id, name: value.name, isBeer: false, isBrewersChoice: false, disabled: true} );
 	 			});
 	 		});
 	    }
@@ -150,8 +154,9 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
 	    		if(value.isBeer && value.name && value.isNew) {
 	    			$scope.insertBeers(value);
 	    			value.disabled = true;
-	    		} else if(value.name) {
-	    			$scope.newChilItems.push(value);
+	    		} else if(value.name && value.isNew) {
+	    			$scope.insertChilis(value);
+	    			value.disabled = true;
 	    		} 
 	    	});
 	    }
@@ -159,7 +164,19 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
 	    $scope.insertBeers = function(beer) {
 	    	$http.post('/beers', {
 	    		name: beer.name,
-	    		isBrewersChoice: beer.isBrewersChoice
+	    		isBrewersChoice: beer.isBrewersChoice,
+	    		rating: 0
+		    }).success( function(beer) {
+		    }).error(function(err) {
+		      // Alert if there's an error
+		      return alert(err.message || "an error occurred");
+		    });
+	    }
+
+	    $scope.insertChilis = function(chili) {
+	    	$http.post('/chili', {
+	    		name: chili.name,
+	    		rating: 0
 		    }).success( function(beer) {
 		    }).error(function(err) {
 		      // Alert if there's an error

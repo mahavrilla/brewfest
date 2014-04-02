@@ -30,6 +30,17 @@ votingApp.service('votingService', function(){
 		}
 	}
 
+	this.updateNewRatings = function(beers, votes) {
+		for( var x = 0; x < beers.length; x++) {
+			for( var i = 0; i < votes.length; i++) {
+				if(votes[i].beerId == beers[x].id) {
+					beers[x].rating = votes[i].rating;
+				}
+			}
+		}
+		return beers;
+	}
+
 	this.updateChiliRatings = function() {
 		for( var x = 0; x < this.chiliItems.length; x++) {
 			for( var i = 0; i < this.updatedChiliVotes.length; i++) {
