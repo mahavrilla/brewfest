@@ -19,21 +19,47 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
 	$scope.count = 0;
 	//$scope.getArray = [{a: $scope.codes[0]}, {a: $scope.code[1] }];
 
-    $scope.generateCodes = function() {
+    $scope.generateCodes = function( number) {
         $scope.csvData = [];
-        $scope.count = 1;
     
-        for( var x = 0; x < 1; x++) {
+        for( var x = 0; x < number; x++) {
             $scope.randomNumber = Math.floor(Math.random()*9000) + 1000;
             $scope.csvData.push({ a: $scope.randomNumber });
         }
         $scope.insertRandomCodes();
+        $scope.noOfCodes = '';
     }
 
     $scope.insertRandomCodes = function() {
         angular.forEach($scope.csvData, function(value, key) {
             dataService.insertNewCodes( value.a.toString() , false).then( function( response) {
             });
+        });
+    }
+
+    $scope.lockSingleCode = function( code) {
+        dataService.checkVoteCode( code).then( function( response) {
+            if(response.length == 0) {
+                $scope.lockSingleMessage = 'No Code Found';
+            } else {
+                dataService.updateCode( response[0].id, true).then( function( response) {
+                    $scope.lockSingleMessage = 'Locked code ' + response.Code;
+                });
+            }
+            $scope.lockCode = '';
+        });
+    }
+
+    $scope.unlockSingleCode = function( code) {
+        dataService.checkVoteCode( code).then( function( response) {
+            if(response.length == 0) {
+                $scope.unlockSingleMessage = 'No Code Found: code';
+            } else {
+                dataService.updateCode(response[0].id , false).then( function( response) {
+                     $scope.unlockSingleMessage  = 'unlocked code: ' + response.Code;
+                });
+            }
+            $scope.unlockCode = '';
         });
     }
 

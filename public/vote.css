@@ -1,7 +1,7 @@
 /* Space out content a bit */
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  /*padding-top: 20px;
+  padding-bottom: 20px;*/
 }
 
 .icon {
@@ -103,17 +103,25 @@ body {
 
 
 .toast-top-center { top: 12px; left: 50%; margin-left: -182px; }
-
 @media all and (max-width: 240px) {
 .toast-top-center { margin-left: -100px; }
+.col-xs-4 {
+    width: 100%;
+  }
 }
 
 @media all and (min-width: 241px) and (max-width: 320px) {
-.toast-top-center { margin-left: -130px; }
+  .toast-top-center { margin-left: -130px; }
+  .col-xs-4 {
+    width: 100%;
+  }
 }
 
 @media all and (min-width: 321px) and (max-width: 480px) {
-.toast-top-center { margin-left: -150px; }
+  .toast-top-center { margin-left: -150px; }
+  .col-xs-4 {
+    width: 100%;
+  }
 }
 
 #clear { position : absolute; top:1%; left :14%; }

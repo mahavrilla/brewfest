@@ -12,8 +12,8 @@ src: url("fonts/VistaSlabOT-Bold.otf") format("opentype");
 }
 
 body {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  /*padding-top: 40px;
+  padding-bottom: 40px;*/
   font-family: VistaSlabOT;
   color: #404040;
   
