@@ -97,7 +97,15 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
   	};
 
 	$scope.finalizeVote = function() {
-		dataService.finalize();
+		dataService.finalize().then( function( d) {
+      if(d.length == 0) {
+        toastr.error('Please try to submit your votes again');
+      } else {
+         toastr.success('Votes Submitted, your code is now locked: ' + d.Code , 'success');
+         loginService.logout();
+         $location.path( '/' );
+      } 
+    });
 	};
 
   $scope.checkSuccess = function( rating) {

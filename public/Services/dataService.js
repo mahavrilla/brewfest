@@ -1,4 +1,4 @@
-votingApp.service('dataService', function($http){
+votingApp.service('dataService', function($http, loginService){
 
 	this.getBeers = function() {
 			var promise = $http.get('/beers?{"$sort":{"name":%201}}').then( function( response) {
@@ -98,12 +98,14 @@ votingApp.service('dataService', function($http){
  	}
 
  	this.finalize = function() {
- 		$http.put('/codes', {
+ 		var promise = $http.put('/codes', {
 	      id: loginService.codeId,
 	      Used: true
- 		}).success( function(result) {
-
+ 		}).then( function( response) {
+ 			return response.data;
  		});
+
+ 		return promise;
  	}
 
  	this.getAllCodes = function() {

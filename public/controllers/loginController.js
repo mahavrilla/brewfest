@@ -35,6 +35,7 @@ votingApp.controller('loginController', function($scope, $http, $location, login
 
 	$scope.logout = function() {
 		loginService.logout();
+		$scope.go('/');
 	}
 
 	$scope.go = function ( path ) {
