@@ -11,10 +11,9 @@
 </div>
 
 </br>
-<p class="customFonts">You've tasted, you've tested, you may have even gotten a bit tipsy. Now rate your favorite chili below.</p>
-<alert ng-repeat="alert in alerts" class="customFonts" type="alert.type">{{alert.msg}}</alert>
 
 <div id="beers" ng-show="showBeer">
+	<p class="customFonts">You've tasted, you've tested, you may have even gotten a bit tipsy. Now rate your favorite beer below.</p>
 	<div class="input-group">
   		<input type="search" class="form-control" ng-model="searchItems" placeholder="Search...">
   		<span class="input-group-addon" ng-click="clearSearch()">X</span>
@@ -37,8 +36,8 @@
 	            </td>
 	            <td>
 	            	<div id="select-native-1-button" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow">
-	            	<span></span>
-		            	<select class="form-control" ng-class="{alert: checkSuccess( item.rating), 'alert-success': checkSuccess( item.rating)}" name="select-native-1" id="select-native-1" ng-model="item.rating" ng-change="saveVote( item, item.rating, true)">
+	            		<!--ng-class="{alert: checkSuccess( item.rating), 'alert-success': checkSuccess( item.rating)}"-->
+		            	<select class="form-control" name="select-native-1" id="select-native-1" ng-model="item.rating" ng-change="saveVote( item, item.rating, true)">
 		            			<option value="0">0</option>
 			                    <option value="1">1</option>
 			                    <option value="2">2</option>
@@ -53,6 +52,7 @@
 	</table>
 </div>
 <div id="chilis" ng-show="showChili"> 
+	<p class="customFonts">You've tasted, you've tested, you may have even gotten a bit tipsy. Now rate your favorite chili below.</p>
 	<div class="input-group">
   		<input type="search"  class="form-control" ng-model="searchItems" placeholder="Search...">
   		<span class="input-group-addon" ng-click="clearSearch()">X</span>
@@ -74,7 +74,6 @@
 	            </td>
 	            <td>
 	            	<div id="select-native-1-button" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow">
-	            	<span></span>
 		            	<select class="form-control" name="select-native-1" id="select-native-1" ng-model="item.rating" ng-change="saveVote( item, item.rating)">
 		            			<option value="0">0</option>
 			                    <option value="1">1</option>
