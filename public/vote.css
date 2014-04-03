@@ -1,19 +1,5 @@
-/* Space out content a bit */
-body {
-  /*padding-top: 20px;
-  padding-bottom: 20px;*/
-}
 
-.icon {
-  color: #f29400;
-  margin-top:  -5px;
-}
-
-.toast-top-width {
-  position: fixed;
-  width: 100%;
-}
-
+/*ACTIVE BUTTON TO SWITCH VIEWS */
 .btn.activeBtn {
   color: #404040;
   background-color: white;
@@ -27,40 +13,13 @@ body {
   color: #404040;
   height: 50px;
 }
-
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  padding-bottom: 19px;
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-}
+/*END ACTIVE BUTTON TO SWITCH VIEWS */
 
 /* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+footer {
+  padding-bottom: 19px;
 }
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
 .container-narrow > hr {
   margin: 30px 0;
 }
@@ -69,44 +28,24 @@ body {
   text-align: center;
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
-.marketing p + h4 {
-  margin-top: 28px;
-}
-
-.inactive {
-  background-color: #f5f6f9;
-  color: #404040;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
-}
-
-
 .toast-top-center { top: 12px; left: 50%; margin-left: -182px; }
+
+
+/*TOASTR AND MEDIA QUERIES*/
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+
 @media all and (max-width: 240px) {
 .toast-top-center { margin-left: -100px; }
 .col-xs-4 {
     width: 100%;
+  }
+  nav ul, nav:active ul { 
+    display: none;
   }
 }
 
@@ -115,12 +54,19 @@ body {
   .col-xs-4 {
     width: 100%;
   }
+  nav ul, nav:active ul { 
+    display: none;
+  }
+
 }
 
 @media all and (min-width: 321px) and (max-width: 480px) {
   .toast-top-center { margin-left: -150px; }
   .col-xs-4 {
     width: 100%;
+  }
+  nav ul, nav:active ul { 
+    display: none;
   }
 }
 

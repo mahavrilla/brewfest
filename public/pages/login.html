@@ -2,7 +2,7 @@
 <form class="form-signin" role="form">
 		<h3 class="customFonts">Welcome to brewfest and chili cookoff 2014.</h3>
 		<p class="customFonts"> Please enter your 4 digit code</p>
-		<input type="text" placeholder="Code" class="form-control customFonts" ng-model="entryCode" required autofocus/>
-		<p ng-show="showLoginError" class="customFonts"> {{ errorMessage }}</p>
+		<input type="number" placeholder="Code" class="form-control customFonts" ng-model="entryCode" min="1000" max="9999" required autofocus/>
+		<p ng-show="showLoginError" class="customFonts errorMessage"> {{ errorMessage }}</p>
 	 	<button type="submit" class="btn btnSubmit btn-lg btn-block customFonts" ng-click="login(entryCode)">enter</button>&nbsp;&nbsp;
 </form>

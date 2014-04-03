@@ -3,9 +3,15 @@
 var votingApp = angular.module('votingApp', ['ui.bootstrap', 'ngCsv', 'ngSanitize']);
 
 // configure our routes
-votingApp.config(function($routeProvider) {
-	$routeProvider
+votingApp.config(function($routeProvider, $httpProvider) {
+	//initialize get if not there
+    if (!$httpProvider.defaults.headers.get) {
+        $httpProvider.defaults.headers.get = {};    
+    }
+    //disable IE ajax request caching
+    $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
 
+	$routeProvider
 		// route for the login page
 		.when('/', {
 			templateUrl : 'pages/login.html',
@@ -16,19 +22,9 @@ votingApp.config(function($routeProvider) {
 			templateUrl : 'pages/admin.html',
 			controller  : 'adminController'
 		})
-		//routeto the chili page
-		.when('/chili', {
-			templateUrl : 'pages/chili.html',
-			controller  : 'chiliController'
-		})
-		//routeto the chili page
+		//routeto the voting page
 		.when('/voting', {
 			templateUrl : 'pages/voting.html',
 			controller  : 'votingController'
-		})
-		// route for the vote page
-		.when('/beer', {
-			templateUrl : 'pages/beer.html',
-			controller  : 'beerController'
 		});
 });

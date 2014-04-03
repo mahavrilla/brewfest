@@ -26,7 +26,7 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
     	$location.path( '/' );
     }
 
-    dataService.getBeers().then(function(d) {
+    dataService.getBeers().then( function( d) {
     	$scope.beerItems = d;
 
     	//level 2
@@ -58,7 +58,7 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
 
     $scope.showBeers = function() {
     	$scope.showBeer = true;
-		$scope.showChili = false;
+		  $scope.showChili = false;
     }
 
     $scope.saveVote = function(item, rating, isBeer) {
@@ -100,8 +100,8 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
 		dataService.finalize();
 	};
 
-    $scope.showToast = function() {
-        toastr.info('Are you the 6 fingered man?');
-    };
+  $scope.checkSuccess = function( rating) {
+    return rating > 0;
+  }
 
 });

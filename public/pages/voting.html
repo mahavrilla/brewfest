@@ -38,7 +38,7 @@
 	            <td>
 	            	<div id="select-native-1-button" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow">
 	            	<span></span>
-		            	<select class="form-control" name="select-native-1" id="select-native-1" ng-model="item.rating" ng-change="saveVote( item, item.rating, true)">
+		            	<select class="form-control" ng-class="{alert: checkSuccess( item.rating), 'alert-success': checkSuccess( item.rating)}" name="select-native-1" id="select-native-1" ng-model="item.rating" ng-change="saveVote( item, item.rating, true)">
 		            			<option value="0">0</option>
 			                    <option value="1">1</option>
 			                    <option value="2">2</option>
@@ -55,7 +55,7 @@
 <div id="chilis" ng-show="showChili"> 
 	<div class="input-group">
   		<input type="search"  class="form-control" ng-model="searchItems" placeholder="Search...">
-  		<span class="input-group-addon">X</span>
+  		<span class="input-group-addon" ng-click="clearSearch()">X</span>
 	</div>
 
 	<table align="center" class="table table-striped">
