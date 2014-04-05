@@ -316,9 +316,9 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
             name: beer.name,
             rating: 0
         }).then( function(result) {
-            return alert(result.message || "success");
+           // return alert(result.message || "success");
         }, function( result) {
-            return alert(result.message || "an error occurred");
+           // return alert(result.message || "an error occurred");
         });
     }
 
