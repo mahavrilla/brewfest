@@ -20,6 +20,22 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
     $scope.csvDataMessage = [];
 	//$scope.getArray = [{a: $scope.codes[0]}, {a: $scope.code[1] }];
 
+
+    toastr.options = {
+                      "closeButton": false,
+                      "debug": false,
+                      "positionClass": "toast-top-center",
+                      "onclick": null,
+                      "showDuration": "300",
+                      "hideDuration": "1000",
+                      "timeOut": "2000",
+                      "extendedTimeOut": "1000",
+                      "showEasing": "swing",
+                      "hideEasing": "linear",
+                      "showMethod": "fadeIn",
+                      "hideMethod": "fadeOut"
+                    }
+
     $scope.generateCodes = function( number) {
         $scope.csvData = [];
         
@@ -302,10 +318,12 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
             id: chili.id,
             name: chili.name,
             rating: 0
-        }).success( function(beer) {
+        }).success( function( result) {
+             toastr.success(chili.name + ' was updated successfully', 'success');
         }).error(function(err) {
           // Alert if there's an error
-          return alert(err.message || "an error occurred");
+          toastr.error('there was an issue updating, please try again.', 'error');
+          //return alert(err.message || "an error occurred");
         });
     }
 
@@ -316,8 +334,10 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
             name: beer.name,
             rating: 0
         }).then( function(result) {
+            toastr.success(beer.name + ' was updated successfully', 'success');
            // return alert(result.message || "success");
         }, function( result) {
+            toastr.error('there was an issue updating, please try again.', 'error');
            // return alert(result.message || "an error occurred");
         });
     }
