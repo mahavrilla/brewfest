@@ -35,7 +35,7 @@ votingApp.controller('loginController', function($scope, $http, $location, login
 
 	$scope.logout = function() {
 		loginService.logout();
-		localStorage.setItem("brewfestCode", "");
+		localStorage.removeItem('brewfestCode');
 		$scope.go('/');
 	}
 
@@ -43,11 +43,12 @@ votingApp.controller('loginController', function($scope, $http, $location, login
   		$location.path( path );
 	};
 
-	$scope.local = localStorage.getItem("brewfestCode");
-    if($scope.local) {
-    	$scope.entryCode = $scope.local;
-    	$scope.login( $scope.entryCode);
-    }
-
+	if($location.url() != '/admin') {
+		$scope.local = localStorage.getItem("brewfestCode");
+	    if($scope.local) {
+	    	$scope.entryCode = $scope.local;
+	    	$scope.login( $scope.entryCode);
+	    }
+	}
 
 });
