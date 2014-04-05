@@ -17,22 +17,48 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
 	$scope.showExtras = false;
 	$scope.newItems = [];
 	$scope.count = 0;
+    $scope.csvDataMessage = [];
 	//$scope.getArray = [{a: $scope.codes[0]}, {a: $scope.code[1] }];
 
     $scope.generateCodes = function( number) {
         $scope.csvData = [];
+        
     
         for( var x = 0; x < number; x++) {
-            $scope.randomNumber = Math.floor(Math.random()*9000) + 1000;
+            //Check to see if the code exist already.
+            $scope.randomNumber = Math.floor(Math.random()*9000) + 1000;     
+            //$scope.randomNumber = 5617;
             $scope.csvData.push({ a: $scope.randomNumber });
         }
-        $scope.insertRandomCodes();
-        $scope.noOfCodes = '';
+        $scope.checkNewCodes();        
     }
 
+
+    $scope.checkNewCodes = function() {
+         angular.forEach($scope.csvData, function(value, key) {
+            dataService.checkVoteCode( value.a.toString()).then( function( result) {
+               // alert(result.length);
+                if( result.length == 0) {
+                    $scope.insertSingleCode( value.a.toString());
+                } else {
+                    $scope.csvDataMessage.push({ 'Already a code':  value.a.toString() });
+                    $scope.csvData.splice(key, 1);
+                    $scope.generateCodes(1);
+                    // Code exists, try again. 
+                }
+            });
+        });
+    }
+
+    $scope.insertSingleCode = function( singleCode) {
+        dataService.insertNewCodes( singleCode , false).then( function( response) {
+            
+        });
+    }
+           
     $scope.insertRandomCodes = function() {
         angular.forEach($scope.csvData, function(value, key) {
-            dataService.insertNewCodes( value.a.toString() , false).then( function( response) {
+          dataService.insertNewCodes( value.a.toString() , false).then( function( response) {   
             });
         });
     }
@@ -151,6 +177,9 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
     	$scope.removeFromDatabase( $scope.newItems[index].id, $scope.newItems[index].isBeer );
     	$scope.newItems.splice(index, 1);
     }
+    $scope.setChanged = function( index) {
+        $scope.newItems[index].changed = true;
+    }
 
     $scope.removeFromDatabase = function(id, isBeer) {
     	if(isBeer) {
@@ -201,20 +230,20 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
     	$http.get('/beers', { 
  		}).success(function(result) {
  			if(result.length == 0) {
- 				$scope.newItems.push({ id: '', name: '', isBeer: false, isBrewersChoice: false, disabled: false})
+ 				$scope.newItems.push({ id: '', name: '', isBeer: false, isBrewersChoice: false, disabled: false, changed: false})
  			} 
  			angular.forEach(result, function(value, key) {
- 				$scope.newItems.push( { id: value.id, name: value.name, isBeer: true, isBrewersChoice: value.isBrewersChoice, disabled: true});
+ 				$scope.newItems.push( { id: value.id, name: value.name, isBeer: true, isBrewersChoice: value.isBrewersChoice, disabled: false, changed: false});
  			});
  		});
 
  		$http.get('/chili', { 
  		}).success(function(result) {
  			if(result.length == 0) {
- 				$scope.newItems.push({ id: '', name: '', isBeer: false, isBrewersChoice: false})
+ 				$scope.newItems.push({ id: '', name: '', isBeer: false, isBrewersChoice: false, changed: false})
  			} 
  			angular.forEach(result, function(value, key) {
- 				$scope.newItems.push( { id: value.id, name: value.name, isBeer: false, isBrewersChoice: false, disabled: true} );
+ 				$scope.newItems.push( { id: value.id, name: value.name, isBeer: false, isBrewersChoice: false, disabled: false, changed: false} );
  			});
  		});
     }
@@ -227,12 +256,20 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
     	$scope.newChilItems = [];
 
     	angular.forEach($scope.newItems, function(value, key) {
-    		if(value.isBeer && value.name && value.isNew) {
+    		if( value.isBeer && value.name && value.id && value.changed) {
+                // Update beer
+                $scope.updateBeers( value);
+            } else if( value.isBeer && value.name && value.isNew) {
+                // Insert Beer
     			$scope.insertBeers(value);
-    			value.disabled = true;
-    		} else if(value.name && value.isNew) {
+    			//value.disabled = true;
+            } else if (value.name && value.id && value.changed) {
+                // Update chili
+                $scope.updateChilis(value);
+    		} else if( value.name && value.isNew) {
+                // insert chili
     			$scope.insertChilis(value);
-    			value.disabled = true;
+    			//value.disabled = true;
     		} 
     	});
     }
@@ -249,7 +286,7 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
 	    });
     }
 
-    $scope.insertChilis = function(chili) {
+    $scope.insertChilis = function( chili) {
     	$http.post('/chili', {
     		name: chili.name,
     		rating: 0
@@ -258,6 +295,31 @@ votingApp.controller('adminController', function($scope, $http, $location, admin
 	      // Alert if there's an error
 	      return alert(err.message || "an error occurred");
 	    });
+    }
+
+    $scope.updateChilis = function( chili) {
+        $http.put('/chili', {
+            id: chili.id,
+            name: chili.name,
+            rating: 0
+        }).success( function(beer) {
+        }).error(function(err) {
+          // Alert if there's an error
+          return alert(err.message || "an error occurred");
+        });
+    }
+
+    $scope.updateBeers = function( beer) {
+        $http.put('/beers', {
+            id: beer.id,
+            isBrewersChoice: beer.isBrewersChoice,
+            name: beer.name,
+            rating: 0
+        }).then( function(result) {
+            return alert(result.message || "success");
+        }, function( result) {
+            return alert(result.message || "an error occurred");
+        });
     }
 
 });

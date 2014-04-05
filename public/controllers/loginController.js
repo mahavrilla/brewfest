@@ -16,7 +16,6 @@ votingApp.controller('loginController', function($scope, $http, $location, login
 	//login
 	$scope.login = function( code) {
 		dataService.checkVoteCode( code).then( function( result) {
-
 			if(result.length === 1) {
 				loginService.updateStatus(true, result[0].id, result[0].Used, result[0].Code);
 			    if(loginService.locked) {
@@ -24,6 +23,7 @@ votingApp.controller('loginController', function($scope, $http, $location, login
 	      			$scope.errorMessage = 'this code has already been submitted, use a different code';
 	      		} else {
 	      			$scope.myName = loginService.isLoggedIn;
+	      			localStorage.setItem("brewfestCode", code);
 	      			$scope.go('/voting');
 	      		}
 	      	} else {
@@ -35,12 +35,19 @@ votingApp.controller('loginController', function($scope, $http, $location, login
 
 	$scope.logout = function() {
 		loginService.logout();
+		localStorage.setItem("brewfestCode", "");
 		$scope.go('/');
 	}
 
 	$scope.go = function ( path ) {
   		$location.path( path );
 	};
+
+	$scope.local = localStorage.getItem("brewfestCode");
+    if($scope.local) {
+    	$scope.entryCode = $scope.local;
+    	$scope.login( $scope.entryCode);
+    }
 
 
 });

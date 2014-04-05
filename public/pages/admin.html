@@ -82,13 +82,13 @@
 	    <tbody class="customFonts" ng-repeat="item in newItems">
 	        <tr>
 	            <td>
-	                <input type="text" ng-disabled="item.disabled" placeholder="Name" class="form-control customFonts" ng-model="item.name" required autofocus />
+	                <input type="text" ng-change="setChanged( $index)" ng-disabled="item.disabled" placeholder="Name" class="form-control customFonts" ng-model="item.name" required autofocus />
 	            </td>
 	            <td>
-	            	<input type="checkbox" ng-disabled="item.disabled" class="form-control customFonts" ng-model="item.isBeer" required autofocus />
+	            	<input type="checkbox" ng-change="setChanged( $index)" ng-disabled="item.disabled" class="form-control customFonts" ng-model="item.isBeer" required autofocus />
 	            </td>
 	            <td>
-	            	<input type="checkbox" ng-disabled="item.disabled" class="form-control customFonts" ng-model="item.isBrewersChoice" required autofocus />
+	            	<input type="checkbox" ng-change="setChanged( $index)" ng-disabled="item.disabled" class="form-control customFonts" ng-model="item.isBrewersChoice" required autofocus />
 	            </td>
 	            <td>
 	            	<button type="button" ng-click="removeNewItem($index)" class="btn btn-default btn-lg">
@@ -113,6 +113,7 @@
 	  		<span class="input-group-addon" ng-click="generateCodes( noOfCodes)">SUBMIT</span>
 		</div>
 		{{ csvData }}
+		{{ csvDataMessage }}
   	</div>
 
   	<div class="form-group customFonts">
@@ -164,5 +165,5 @@
 	<button type="submit" class="btn btn-lg btnSubmit customFonts" ng-click="refreshVotes()">REFRESH</button>&nbsp;&nbsp;
 </div>
 <div class="button-align" ng-show="showManage">
-	<button type="submit" class="btn btn-lg btnSubmit customFonts" ng-click="insertNewItems()">INSERT</button>&nbsp;&nbsp;
+	<button type="submit" class="btn btn-lg btnSubmit customFonts" ng-click="insertNewItems()">UPDATE</button>&nbsp;&nbsp;
 </div>

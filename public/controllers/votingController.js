@@ -6,6 +6,7 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
 	$scope.showBeer = true;
 	$scope.showChili = false;
   $scope.searchItems = '';
+  $scope.currentCode = loginService.codeNumber;
 
     toastr.options = {
                       "closeButton": false,

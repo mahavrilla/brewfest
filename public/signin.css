@@ -32,11 +32,13 @@ h3 p {
 /* Custom Fonts and Shizzz */
 .customFonts.errorMessage {
   color: red;
+  font-size: 14px;
 }
 
 .customFonts {
   color: #404040;
   font-family: VistaSlabOT;
+  font-size: 20px;
 }
 
 .customFontsBold {
