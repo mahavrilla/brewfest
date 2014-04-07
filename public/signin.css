@@ -53,7 +53,7 @@ p.customSize{
 /* LOGIN PAGE STUFF */
 .form-signin {
   max-width: 330px;
-  padding: 15px;
+  /*padding: 15px;*/
   margin: 0 auto;
 }
 
@@ -83,26 +83,27 @@ a {
   font-weight: bold;
 }
 
-#logo{
-  /*margin: 20px;*/
-  float: left;
-  /*width: 200px;*/
-  height: 76px;
-  display: block;
-  background: #404040;
-
+/*.nav>li {
+  z-index: 10;
 }
 
-/* Menu links for desktops*/
-ul {
-  list-style: none;
-  float:right;
+.dropdown-menu {
+  background-color: #404040;
 }
 
-li {
-  display: inline-block;
-  float: left;
-  padding: 10px
+.dropdown-menu>li>a{
+  color: #f29400;
+   text-align:right;
+}*/
+
+#menu-icon {
+  width: 40px;
+  height: 40px;
+  background: #404040 url(images/dropdown_nav.png) center;
+  margin-top: 20px;
+  margin-right: 20px;
+  float: right;
+
 }
 
 .links{ 
@@ -111,10 +112,11 @@ li {
   font-weight: bold;
 }
 
-.logoBkgrd {
+/*.logoBkgrd {
   background: #404040;
   height: 76px;
-}
+  width: 100%;
+}*/
 /* END LOGIN PAGE STUFF */
 
 /* ACTIVE BUTTON TO SWITCH VIEWS */
@@ -141,17 +143,83 @@ li {
 .button-align {
   text-align: center;
 }
+
+.icon-bar {
+  color: #f29400;
+}
 /* END ACTIVE BUTTON TO SWITCH VIEWS */
 
 /* TOASTR SUPPORT*/
 .toast-top-center { top: 12px; left: 50%; margin-left: -182px; }
 /* END TOASTR SUPPORT */
 
+/* OVERWRITE THE BOOTSTRAP DEFAULTS */
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+  background-color: #404040;
+
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse {
+  background-color: #404040;
+  color: #f29400;
+}
+
+.navbar-inverse .navbar-toggle {
+  border-color: transparent;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+  background-color: #f29400;
+}
+
+.navbar-brand {
+  float: none;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.navbar-collapse {
+  padding-left:15px;
+}
+
+.container {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.content {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.nav>li {
+  padding-left: 15px;
+}
+/* END THE BOOTSTRAP DEFAULTS */
+
 /* MEDIA QUERIES */
-/* Customize container */
 @media (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: 750px
+  }
+  .navbar {
+    max-width: 750px;
+    margin: auto;
+  }
+  .navImage {
+    width: 50%;
+  }
+}
+
+@media all and (min-width: 481px) and (max-width: 767px) {
+  .toast-top-center { margin-left: -130px; }
+  .col-xs-4 {
+    width: 100%;
+  }
+  .navImage {
+    width: 30%;
   }
 }
 
@@ -160,8 +228,8 @@ li {
 .col-xs-4 {
     width: 100%;
   }
-  nav ul, nav:active ul { 
-    display: none;
+    .navImage {
+    width: 50%;
   }
 }
 
@@ -170,9 +238,8 @@ li {
   .col-xs-4 {
     width: 100%;
   }
-  nav ul, nav:active ul { 
-
-    display: none;
+  .navImage {
+    width: 50%;
   }
 }
 
@@ -181,14 +248,14 @@ li {
   .col-xs-4 {
     width: 100%;
   }
-  nav ul, nav:active ul { 
-    display: none;
+  .navImage {
+  width: 50%; 
   }
 }
 /* END MEDIA QUERIES */
 
 /* FLATTEN DAS BOOTSTRAP */
-.well, .navbar-inner, .popover, .btn, .tooltip, input, select, textarea, pre, .progress, .modal, .add-on, .alert, .table-bordered, .nav>.active>a, .dropdown-menu, .tooltip-inner, .badge, .label, .img-polaroid {
+.well, .navbar, .navbar-inner, .popover, .btn, .tooltip, input, select, textarea, pre, .progress, .modal, .add-on, .alert, .table-bordered, .nav>.active>a, .dropdown-menu, .tooltip-inner, .badge, .label, .img-polaroid {
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
@@ -198,4 +265,5 @@ li {
   border-collapse: collapse !important;
   background-image: none !important;
 }
+
 /* END FLATTEN DAS BOOTSTRAP */

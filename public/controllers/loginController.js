@@ -5,7 +5,7 @@ votingApp.controller('loginController', function($scope, $http, $location, login
 	$scope.message = 'Enter ID!';
 	$scope.entryCode = ''; 
 	$scope.showLoginError = false;
-
+	$scope.loggedIn = false;
 
 	//check to see if the code was put in the URl. 
 	$scope.entryCode = ($location.search()).code;
@@ -22,7 +22,7 @@ votingApp.controller('loginController', function($scope, $http, $location, login
 	      			$scope.showLoginError = true;
 	      			$scope.errorMessage = 'this code has already been submitted, use a different code';
 	      		} else {
-	      			$scope.myName = loginService.isLoggedIn;
+	      			$scope.loggedIn = true;
 	      			localStorage.setItem("brewfestCode", code);
 	      			$scope.go('/voting');
 	      		}

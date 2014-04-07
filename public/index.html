@@ -10,7 +10,6 @@
 		
 		<!-- Mobile First -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-
 		<!-- Set icon for saving bookmark -->
 		<link rel="apple-touch-icon" href="images/icon-homescreen.png"/> 
 
@@ -52,37 +51,44 @@
 		<script src="Services/adminService.js"></script>
 		<script src="Services/votingService.js"></script>
 		<script src="Services/dataService.js"></script>
-		
 	</head>
 
 	<body ng-controller="loginController">
 		<!-- MAIN CONTENT AND INJECTED VIEWS -->
-		<div class="container">
 			<!-- angular templating -->
 			<!-- this is where content will be injected -->
-			<div class="logoBkgrd">
-				<img src="images/Logo.png" id="logo">
-				
-				<nav>
-					<a href="#" id="menu-icon"></a>
-					<ul>
-						<li><a href="#" ng-click="logout()" class="links customFonts">Home</a></li>
-						<li><a href="#" class="links customFonts" ng-click="logout()">Logout</a></li>
-					</ul>
-				</nav>
-			</div>
-			
+
+		<div class="navbar navbar-inverse" role="navigation">
+	      <div class="container">
+	        <div class="navbar-header">
+	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" >
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <a class="navbar-brand" href="#">
+	          <img src="images/Logo.png" class="navImage">
+	          </a>
+	        </div>
+	        <div class="collapse navbar-collapse">
+	          <ul class="nav navbar-nav">
+	            <li class="active"><a href="#">Home</a></li>
+	            <li><a href="#" ng-click="logout()">Logout</a></li>
+	          </ul>
+	        </div><!--/.nav-collapse -->
+	      </div>
+	    </div>
+
+		<div class="container">
 			<div ng-view>
-				
 			</div>
 		</div>
-
 		<!-- FOOTER -->
 		<footer class="text-center customFonts">
 			</br>
-			©2014 <a class="links" href="http://homebrewfest.com">HOMEBREWFEST.COM</a> | <a href="#" class="links" ng-click="logout()" /> LOGOUT 
+			©2014 <a class="links" href="http://homebrewfest.com">HOMEBREWFEST.COM</a>
 			</br>
 		</footer>
-
 	</body>
 	</html>
