@@ -65,7 +65,7 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
     $scope.saveVote = function(item, rating, isBeer) {
     	$scope.existingVotes = [];
     	//check to see if that record exists yet. 
-    	dataService.checkExistingVote(loginService.codeId, item.id, true ).then(function(d) {
+    	dataService.checkExistingVote(loginService.codeId, item.id, isBeer ).then(function(d) {
     		$scope.existingVotes = d;
 
     		if( $scope.existingVotes.length == 0) {
