@@ -104,6 +104,7 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
       } else {
          toastr.success('Votes Submitted, your code is now locked: ' + d.Code , 'success');
          loginService.logout();
+         localStorage.removeItem('brewfestCode');
          $location.path( '/' );
       } 
     });
