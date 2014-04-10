@@ -35,7 +35,7 @@
 	               <!-- <span ng-show="item.isBrewersChoice" class="glyphicon glyphicon-star icon"></span>-->
 	                <span ng-show="item.isBrewersChoice" class="icon"><img src="../images/icon.png"></span>
 	            </td>
-	            <td>
+	            <td class="voting">
 	            	<div id="select-native-1-button" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow">
 	            		<!--ng-class="{alert: checkSuccess( item.rating), 'alert-success': checkSuccess( item.rating)}"-->
 		            	<select class="form-control" name="select-native-1" id="select-native-1" ng-model="item.rating" ng-change="saveVote( item, item.rating, true)">
@@ -91,5 +91,18 @@
 	</table>
 </div>
 <div class="button-align">
-	<button type="submit" class="btn btnSubmit btn-lg customFonts" ng-click="finalizeVote()">SUBMIT YOUR VOTES</button>&nbsp;&nbsp;
+	<button type="submit" class="btn btnSubmit btn-lg customFonts" ng-click="open()">SUBMIT YOUR VOTES</button>&nbsp;&nbsp;
 </div>
+
+<script type="text/ng-template" id="myModalContent.html" >
+    <div class="modal-header">
+        Finalize
+    </div>
+    <div class="modal-body">
+        Are you sure? Once you submit you cannot change your votes. 
+    </div>
+    <div class="modal-footer">
+        <button class="btn btnSubmit" ng-click="ok()">SUBMIT</button>
+        <button class="btn btnSubmit" ng-click="cancel()">CANCEL</button>
+    </div>
+</script>

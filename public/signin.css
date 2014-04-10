@@ -249,7 +249,7 @@ a {
     width: 100%;
   }
   .navImage {
-  width: 50%; 
+    width: 50%; 
   }
 }
 /* END MEDIA QUERIES */
@@ -267,3 +267,18 @@ a {
 }
 
 /* END FLATTEN DAS BOOTSTRAP */
+.voting {
+  min-width: 75px;
+}
+.modal {
+  display: block;
+  background-color: white;
+  max-width: 320px;
+  max-height: 220px;
+  margin: auto;
+}
+
+.modal-footer {
+  margin-top: 0px;
+  text-align: center;
+}

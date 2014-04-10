@@ -1,4 +1,4 @@
-votingApp.controller('votingController', function($scope, $http, $location, $timeout, votingService, loginService, dataService) {
+votingApp.controller('votingController', function($scope, $http, $location, $timeout,$modal, $log, votingService, loginService, dataService) {
 	$scope.beerItems = [];
 	$scope.chiliItems = []; 
 	$scope.votes = [];
@@ -114,4 +114,46 @@ votingApp.controller('votingController', function($scope, $http, $location, $tim
     return rating > 0;
   }
 
+  //modal support
+  $scope.open = function () {
+      var modalInstance = $modal.open({
+        templateUrl: 'myModalContent.html',
+        controller: ModalInstanceCtrl,
+        resolve: {
+        }
+      });
+
+      modalInstance.result.then(function () {
+        //
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+    };
 });
+
+// Please note that $modalInstance represents a modal window (instance) dependency.
+// It is not the same as the $modal service used above.
+
+var ModalInstanceCtrl = function ($scope, $modalInstance, $location, dataService, loginService) {
+
+  $scope.ok = function () {
+    $modalInstance.close( $scope.finalize() );
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+
+  $scope.finalize = function() {
+    dataService.finalize().then( function( d) {
+      if(d.length == 0) {
+        toastr.error('Please try to submit your votes again');
+      } else {
+         //toastr.success('Votes Submitted, your code is now locked: ' + d.Code , 'success');
+         loginService.logout();
+         localStorage.removeItem('brewfestCode');
+         $location.path( '/' );
+      } 
+    });
+  }
+};
