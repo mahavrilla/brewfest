@@ -1,0 +1,7 @@
+.DS_Store
+.dpd
+app.dpd
+data
+heroku.js
+node_modules
+resources
